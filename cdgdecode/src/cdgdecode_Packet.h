@@ -41,6 +41,19 @@ struct ChannelMapping
 
 
 /**
+ * Inside of the documentation it maps bit locations to a 
+ * channel. To Simplify how this works, I've created a struct that
+ * performs bit-packing. 
+ */
+struct ChannelMask
+{
+	unsigned char payload : 6;
+	unsigned char Q : 1;
+	unsigned char P : 1;
+};
+
+
+/**
  * To use this feature, simply instantiate this union object, assign
  * the data member, then query the channel.
  */
