@@ -5,6 +5,7 @@ namespace cdgdecode
 
 struct HeaderPrivate
 {
+	
 };
 
 

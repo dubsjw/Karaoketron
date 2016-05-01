@@ -7,10 +7,12 @@
  */
 
 #include <cstdint>
-
+#include <memory>
 
 namespace cdgdecode
 {
+
+class CDGBuffer;
 
 struct SubCode
 {
@@ -60,8 +62,56 @@ struct ChannelMask
 union ChannelDecoder
 {
 	ChannelMapping channel;
+	ChannelMask mask;
 	std::int8_t data;
 };
+
+struct PacketPrivate;
+
+/**
+ * The packet is an optimized holder of a SubCode. 
+ */
+struct Packet 
+{
+	Packet(CDGBuffer const& buffer, std::uint32_t index);
+	~Packet();
+	Packet(Packet const& packet);
+	Packet& operator=(Packet packet);
+	void swap(Packet& packet);
+
+	/**
+	 * Read a different packet with random access from within the same
+	 * buffer. The position is dictated by the index value.
+	 *
+	 * @param index The index into the buffer where we would read data.
+	 */
+	void ReloadAtPosition(std::uint32_t index);
+
+
+	/**
+	 * @return the command in the subcode without interpretation.
+	 *         This could also include information not related to the 
+	 *         cdg file format.
+	 */
+	std::int8_t RawCommand() const;
+
+
+	/**
+	 * @return true if the packet has CDG encoding. This is done 
+	 *         through checking if the lower 6 bits of the 
+	 */
+	bool HasCDGEncoding() const;
+
+
+	/**
+	 * @return the instruction that tells us what to render in the display.
+	 */
+	std::int8_t Instruction() const;
+
+	private:
+		std::unique_ptr<PacketPrivate> d_ptr;
+};
+
 
 }
 

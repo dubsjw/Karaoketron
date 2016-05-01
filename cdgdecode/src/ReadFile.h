@@ -7,6 +7,8 @@
 #include <iterator>
 #include <vector>
 
+namespace cdgdecode
+{
 
 inline void ReadFile( const char* filename, std::vector<std::uint8_t>& contents )
 {
@@ -24,3 +26,4 @@ inline void ReadFile( const char* filename, std::vector<std::uint8_t>& contents 
 	f.close();
 }
 
+}
