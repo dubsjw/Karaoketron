@@ -30,7 +30,9 @@ enum
 	LoadColorTableHigh = 31,
 
 	// "Load a 12 x 6, color tile and display it using the XOR method."
-	TileBlockXOR = 38
+	TileBlockXOR = 38,
+
+	MaximumNumberOfCommands
 };
 
 }
