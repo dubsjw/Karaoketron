@@ -1,2 +1,2 @@
 # Karaoketron
-A functional, easy to use karaoke player.
+A functional, easy to use, fast C++ karaoke player.
