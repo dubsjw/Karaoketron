@@ -1,4 +1,4 @@
-#include "src/cdgdecode_Packet.h"
+#include "src/cdgdecode_InstructionValues.h"
 #include "src/cdgdecode_Packet.h"
 #include "src/CDGBuffer.h"
 #include "src/FileExists.h"
@@ -57,7 +57,7 @@ SCENARIO( "mary had a little lamb whose fleece was white as snow" )
 
 			THEN( "grab the instruction" )
 			{
-				REQUIRE(packet.Instruction() == MemoryPreset);
+				REQUIRE(packet.Instruction() == cdgdecode::MemoryPreset);
 			}
 		}
 	}
