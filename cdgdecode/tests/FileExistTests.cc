@@ -13,8 +13,14 @@ TEST_CASE("test to see if the binary file exists")
 {
 	#if defined __linux__
 	bool exists = cdgdecode::FileExists("CDGDecodeTests");
-	#else
+	#elif defined _WIN32 || defined _WIN64
+		#if defined _DEBUG
+			bool exists = cdgdecode::FileExists("Debug/CDGDecodeTests.exe");
+		#else
+			bool exists = cdgdecode::FileExists("Release/CDGDecodeTests.exe");
 
+		#endif
 	#endif
+
 	REQUIRE(exists == true);
 }
