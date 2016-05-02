@@ -3,6 +3,7 @@
 // cdgdecode dependencies
 #include <cdgdecode/Packet.h>
 #include "src/cdgdecode_InstructionValues.h"
+#include "src/cdgdecode_MemoryPreset.h"
 
 // std dependencies
 #include <cassert>
@@ -17,8 +18,12 @@ namespace cdgdecode
  */
 template <typename EngineType> struct PacketProcessor
 {
+	//! Reference back to the engine where something is going to be 
+	//! done. 
 	EngineType& m_engine;
 
+	//! The following is a typedef describing the type of pointer to 
+	//! functions being used.
 	typedef void (*Processor)(EngineType& engine, Packet const& packet);
 
 	//! The collection of processors, indexed by instruction identifier.
@@ -40,6 +45,9 @@ template <typename EngineType> struct PacketProcessor
 	{
 		m_processors.resize( MaximumNumberOfCommands
 		                   , &PacketProcessor<EngineType>::NullProcessor);
+
+		// Assign all of the known commands.
+		m_processors[MemoryPreset] = &HandleMemoryPreset<EngineType>;
 	}	
 
 
@@ -71,6 +79,7 @@ template <typename EngineType> struct PacketProcessor
 	{
 		assert(nullptr && "The command was not implemented");
 	}
+
 };
 
 }

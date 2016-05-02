@@ -110,6 +110,15 @@ struct CDGDECODE_EXPORT Packet
 	 */
 	std::int8_t Instruction() const;
 
+
+	/**
+	 * The data area, which is a buffer that is 16 bytes in length. Used by
+	 * instructions.
+	 *
+	 * @return a pointer to the data element.
+	 */	
+	const std::int8_t* Data() const;
+
 	private:
 		std::unique_ptr<PacketPrivate> d_ptr;
 };

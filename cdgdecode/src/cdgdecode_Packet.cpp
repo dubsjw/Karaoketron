@@ -91,5 +91,12 @@ std::int8_t Packet::Instruction() const
 	return (decoder.mask.payload);
 }
 
+
+const std::int8_t* Packet::Data() const
+{
+	return &(d_ptr->m_subCode->data[0]);
+}
+
+
 }
 
