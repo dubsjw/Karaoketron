@@ -3,6 +3,7 @@
 // cdgdecode dependencies
 #include <cdgdecode/Packet.h>
 #include "src/cdgdecode_InstructionValues.h"
+#include "src/cdgdecode_BorderPreset.h"
 #include "src/cdgdecode_MemoryPreset.h"
 
 // std dependencies
@@ -48,6 +49,7 @@ template <typename EngineType> struct PacketProcessor
 
 		// Assign all of the known commands.
 		m_processors[MemoryPreset] = &HandleMemoryPreset<EngineType>;
+		m_processors[BorderPreset] = &HandleBorderPreset<EngineType>;
 	}	
 
 

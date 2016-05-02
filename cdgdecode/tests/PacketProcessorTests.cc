@@ -1,17 +1,6 @@
+#include "tests/MockEngine.h"
 #include <cdgdecode/PacketProcessor.h>
 #include <catch.hpp>
-
-struct MockEngine
-{
-	/**
-	 * The following method is required by the MemoryPreset 
-	 * instruction.
-	 */
-	void Clear(std::int8_t color)
-	{
-
-	}
-};
 
 using namespace cdgdecode;
 

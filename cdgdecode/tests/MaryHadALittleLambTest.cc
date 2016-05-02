@@ -3,6 +3,7 @@
 #include "src/CDGBuffer.h"
 #include "src/FileExists.h"
 #include "src/ReadFile.h"
+#include <cdgdecode/PacketProcessor.h>
 #include <catch.hpp>
 #include <cstdint>
 #include <fstream>
