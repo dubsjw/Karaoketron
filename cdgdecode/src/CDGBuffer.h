@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cdgdecode/Globals.h>
 #include <cstdint>
 #include <memory>
 
@@ -8,7 +9,7 @@ namespace cdgdecode
 
 struct CDGBufferPrivate;
 
-class CDGBuffer
+class CDGDECODE_EXPORT CDGBuffer
 {
 	public:
 		CDGBuffer();

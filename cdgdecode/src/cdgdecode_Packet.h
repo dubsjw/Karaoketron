@@ -6,6 +6,8 @@
  * together.
  */
 
+#include <cdgdecode/Globals.h>
+
 #include <cstdint>
 #include <memory>
 
@@ -71,7 +73,7 @@ struct PacketPrivate;
 /**
  * The packet is an optimized holder of a SubCode. 
  */
-struct Packet 
+struct CDGDECODE_EXPORT Packet 
 {
 	Packet(CDGBuffer const& buffer, std::uint32_t index);
 	~Packet();
