@@ -2,6 +2,7 @@
 
 #include "src/cdgdecode_Screen.h"
 #include <cstdint>
+#include <cstdlib>
 #include <vector>
 
 namespace cdgdecode
@@ -43,6 +44,19 @@ struct MockEngine
 				m_screen[i][j] = color;	
 			}
 		}
+	}
+
+
+	void ClearBorder(std::int8_t color)
+	{
+
+	}
+
+
+	void DrawTile( std::int8_t row, std::int8_t column
+	             , std::int8_t const* tile)
+	{
+
 	}
 };
 

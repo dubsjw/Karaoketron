@@ -61,6 +61,25 @@ SCENARIO( "mary had a little lamb whose fleece was white as snow" )
 				REQUIRE(packet.Instruction() == cdgdecode::MemoryPreset);
 			}
 		}
+
+
+		WHEN( "creating and incrementing a packet")
+		{
+			cdgdecode::Packet packet(buffer, StartOfPackets);
+			int packetIndex = 0;
+
+			// Go to the next packet.
+			while(packet.HasCDGEncoding() && packet.Instruction() <= 2)
+			{
+				++packet;
+				packetIndex += 1;
+			}
+			std::cout << "Is CDG Encoded : " << packet.HasCDGEncoding() << std::endl;
+			std::cout << "Instruction    : " << static_cast<std::int32_t>(packet.Instruction()) << std::endl;
+			std::cout << "PacketIndex    : " << packetIndex << std::endl;
+		}
 	}
+
+
 
 }

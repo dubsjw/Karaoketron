@@ -119,6 +119,14 @@ struct CDGDECODE_EXPORT Packet
 	 */	
 	const std::int8_t* Data() const;
 
+
+	/**
+	 * Increment the packet to the next packet in the buffer.
+	 *
+	 * @return a reference to the next packet.
+	 */
+	Packet& operator++();
+
 	private:
 		std::unique_ptr<PacketPrivate> d_ptr;
 };

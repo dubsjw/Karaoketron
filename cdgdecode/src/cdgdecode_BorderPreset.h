@@ -45,7 +45,7 @@ inline void HandleBorderPreset(EngineType& engine, Packet const& packet)
 
 	// Obtain the color information.
 	bm.data = borderPresetData->color;	
-	auto color = mpm.mask.lower;	
+	auto color = bm.upperLower.lower;	
 	
 	// Clear the screen with the color given.
 	engine.ClearBorder( color );

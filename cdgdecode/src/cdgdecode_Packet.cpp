@@ -98,5 +98,13 @@ const std::int8_t* Packet::Data() const
 }
 
 
+Packet& Packet::operator++()
+{
+	auto nextIndex = d_ptr->m_index + sizeof(SubCode);	
+	d_ptr->Reload(nextIndex);
+	return *this;
+}
+
+
 }
 

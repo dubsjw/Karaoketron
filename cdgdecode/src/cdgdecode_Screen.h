@@ -22,7 +22,15 @@ namespace screen
 
 		ViewX2 = (Width - BorderWidth),
 
-		ViewY2 = (Height - BorderHeight)
+		ViewY2 = (Height - BorderHeight),
+
+		TileWidth = 12,
+		
+		TileHeight = 6,
+
+		NumberOfHorizontalTiles = (ViewX2 - ViewX1) / TileWidth,
+
+		NumberOfVerticalTiles = (ViewY2 - ViewY1) / TileHeight
 
 	};
 }	
