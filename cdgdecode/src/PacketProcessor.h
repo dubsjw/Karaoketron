@@ -50,6 +50,7 @@ template <typename EngineType> struct PacketProcessor
 		// Assign all of the known commands.
 		m_processors[MemoryPreset] = &HandleMemoryPreset<EngineType>;
 		m_processors[BorderPreset] = &HandleBorderPreset<EngineType>;
+		m_processors[
 	}	
 
 

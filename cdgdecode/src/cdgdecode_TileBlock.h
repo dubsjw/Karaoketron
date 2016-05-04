@@ -29,12 +29,26 @@ struct Lower6
 };
 
 
+struct DrawingBits
+{
+	unsigned char bit0 : 1;
+	unsigned char bit1 : 1;
+	unsigned char bit2 : 1;
+	unsigned char bit3 : 1;
+	unsigned char bit4 : 1;
+	unsigned char bit5 : 1;
+
+	unsigned char rest : 2;
+};
+
+
 union TileBlockChannel
 {
 	std::int8_t data;
 	Lower4 l4;
 	Lower5 l5;
 	Lower6 l6;
+	DrawingBits drawing;
 };
 
 
@@ -86,15 +100,29 @@ inline void HandleTileBlockPreset(EngineType& engine, Packet const& packet)
 	tbc.data = tileBlockData->column;
 	auto column = tbc.l6.lower6;
 
-	static std::int8_t tile[screen::TileWidth][screen::TileHeight];
+	static std::int8_t tile[screen::TileHeight][screen::TileWidth];
 
-	for(int y=0; y<screen::TileHeight; ++y)
+	int x = 0;
+	int y = 0;
+
+	for(int i=0; i<12; ++i)
 	{
-		for(int x=0; x<screen::TileWidth; ++x)
+		tbc.data = tileBlockData->tilePixels[i];	
+		
+		tile[y][x] = tbc.drawing.bit0 ? color1 : color0;	
+		tile[y][x+1] = tbc.drawing.bit1 ? color1 : color0;	
+		tile[y][x+2] = tbc.drawing.bit2 ? color1 : color0;	
+		tile[y][x+3] = tbc.drawing.bit3 ? color1 : color0;	
+		tile[y][x+4] = tbc.drawing.bit4 ? color1 : color0;	
+		tile[y][x+5] = tbc.drawing.bit5 ? color1 : color0;	
+
+		x = x + 6;
+		if (x >= screen::TileWidth)
 		{
-			// Initialize the tile data.
-		}
-	}
+			x = 0;
+			++y;
+		} 
+	}		
 
 	engine.DrawTile( row, column, tile );	
 }
