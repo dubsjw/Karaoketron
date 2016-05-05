@@ -2,6 +2,7 @@
 
 // cdgdecode dependencies
 #include <cdgdecode/Packet.h>
+#include <cdgdecode/Screen.h>
 #include "src/cdgdecode_BitMask.h"
 
 // std dependencies

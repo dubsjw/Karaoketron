@@ -81,13 +81,22 @@ void CDGRasterWidget::ClearBorder(std::int8_t color)
 }
 
 
-void CDGRasterWidget::DrawTile( std::int8_t row, std::int8_t column
-	                      , std::int8_t const* tile)
+void CDGRasterWidget::DrawTile( std::int8_t row
+                              , std::int8_t column
+                              , std::int8_t (&tile)[cdgdecode::screen::TileHeight][cdgdecode::screen::TileWidth])
 {
 	using namespace cdgdecode;
+
 	int x = row * screen::TileWidth;	
 	int y = column * screen::TileHeight;	
-	for(int  
+
+	for(int tileX = 0; tileX < cdgdecode::screen::TileWidth; ++tileX)
+	{
+		for(int tileY = 0; tileY < cdgdecode::screen::TileHeight; ++tileY)
+		{
+			m_screen[tileX + x][tileY + y] = tile[tileY][tileX];
+		}
+	}
 
 	repaint();
 }
