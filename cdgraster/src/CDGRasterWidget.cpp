@@ -1,8 +1,10 @@
 #include "src/CDGRasterWidget.h"
+#include <cdgdecode/Tile.h>
 #include <QBrush>
 #include <QMouseEvent>
 #include <QPainter>
 #include <cstdlib>
+#include <iostream>
 
 namespace cdgraster
 {
@@ -10,14 +12,28 @@ namespace cdgraster
 CDGRasterWidget::CDGRasterWidget()
 : QWidget(nullptr)
 {
+	QObject::connect(&m_timer, SIGNAL(timeout()), this, SLOT(OnTimeout()));
+
 	using namespace cdgdecode;
 	setMinimumSize( screen::Width, screen::Height );
 	setMaximumSize( screen::Width, screen::Height );
 
-	for(int i=0; i<16; ++i)
-	{
-		m_colors[0] = QColor(rand() % 255, rand() % 255, rand() % 255);
-	}
+	m_colors[0] = QColor(0,0,0);
+	m_colors[1] = QColor(128, 0, 0);
+	m_colors[2] = QColor(255, 0, 0);
+	m_colors[3] = QColor(255, 0, 255);
+	m_colors[4] = QColor(0, 128, 128);
+	m_colors[5] = QColor(0, 128, 0);
+	m_colors[6] = QColor(0, 255, 0);
+	m_colors[7] = QColor(0, 255, 255);
+	m_colors[8] = QColor(0, 0, 128);
+	m_colors[9] = QColor(128, 0, 128);
+	m_colors[10] = QColor(0, 0, 255);
+	m_colors[11] = QColor(192, 192, 192);
+	m_colors[12] = QColor(128, 128, 128);
+	m_colors[13] = QColor(128, 128, 0);
+	m_colors[14] = QColor(255, 255, 0);
+	m_colors[15] = QColor(255, 255, 255);
 
 	m_screen.resize(screen::Width);
 	for(int i=0; i<screen::Width; ++i)
@@ -83,7 +99,7 @@ void CDGRasterWidget::ClearBorder(std::int8_t color)
 
 void CDGRasterWidget::DrawTile( std::int8_t row
                               , std::int8_t column
-                              , std::int8_t (&tile)[cdgdecode::screen::TileHeight][cdgdecode::screen::TileWidth])
+                              , cdgdecode::Tile const& tile )
 {
 	using namespace cdgdecode;
 
@@ -94,7 +110,8 @@ void CDGRasterWidget::DrawTile( std::int8_t row
 	{
 		for(int tileY = 0; tileY < cdgdecode::screen::TileHeight; ++tileY)
 		{
-			m_screen[tileX + x][tileY + y] = tile[tileY][tileX];
+			m_screen[tileX + x][tileY + y] = tile[tileX][tileY];
+			//std::cout << "m_screen[" << (tileX + x) << "," << (tileY + y) << "] = tile[" << tileX << "," <<tileY << "] = " << static_cast<int>(tile[tileX][tileY]) << "\n";
 		}
 	}
 
@@ -131,16 +148,34 @@ void CDGRasterWidget::paintEvent(QPaintEvent* evt)
 
 void CDGRasterWidget::mousePressEvent(QMouseEvent* evt)
 {
-	if (evt->button() == Qt::LeftButton)
+	if ( (evt->buttons() | Qt::LeftButton) && (evt->buttons() | Qt::RightButton))
 	{
-		m_next();
+		m_timer.start(1);
+	}
+	else if (evt->button() == Qt::LeftButton)
+	{
+		m_next(1);
+	}
+	else if (evt->button() == Qt::RightButton)
+	{
+		m_next(20);
+	}
+	else if (evt->button() == Qt::MiddleButton)
+	{
+		m_timer.start(1);
 	}
 }
 
 
-void CDGRasterWidget::SetNextListener(std::function<void()> next)
+void CDGRasterWidget::SetNextListener(std::function<void(int)> next)
 {
 	m_next = next;
+}
+
+
+void CDGRasterWidget::OnTimeout()
+{
+	m_next(100);
 }
 
 }

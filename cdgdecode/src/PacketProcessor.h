@@ -4,11 +4,15 @@
 #include <cdgdecode/Packet.h>
 #include "src/cdgdecode_InstructionValues.h"
 #include "src/cdgdecode_BorderPreset.h"
+#include "src/cdgdecode_LoadPalette.h"
 #include "src/cdgdecode_MemoryPreset.h"
 #include "src/cdgdecode_TileBlock.h"
+#include "src/cdgdecode_XORTileBlock.h"
 
 // std dependencies
 #include <cassert>
+#include <iostream>
+#include <sstream>
 #include <vector>
 
 namespace cdgdecode
@@ -52,6 +56,10 @@ template <typename EngineType> struct PacketProcessor
 		m_processors[MemoryPreset] = &HandleMemoryPreset<EngineType>;
 		m_processors[BorderPreset] = &HandleBorderPreset<EngineType>;
 		m_processors[TileBlock] = &HandleTileBlockPreset<EngineType>;
+		m_processors[TileBlockXOR] = &HandleXORTileBlockPreset<EngineType>;
+		m_processors[LoadColorTableLow] = HandleLoadLowPalette<EngineType>; 
+		m_processors[LoadColorTableHigh] = HandleLoadHighPalette<EngineType>;
+
 	}	
 
 
@@ -79,8 +87,9 @@ template <typename EngineType> struct PacketProcessor
 	 * @param packet The packet to be processed.
 	 */
 	static void NullProcessor( EngineType& /*engine*/
-	                         , Packet const& /*packet*/)
+	                         , Packet const& packet)
 	{
+		std::cout << "The instruction " << static_cast<int>(packet.Instruction()) << " was not handled.\n\n"; 
 		assert(nullptr && "The command was not implemented");
 	}
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "src/cdgdecode_Screen.h"
+#include "src/cdgdecode_Tile.h"
 #include <cstdint>
 #include <cstdlib>
 #include <vector>
@@ -54,7 +55,7 @@ struct MockEngine
 
 
 	void DrawTile( std::int8_t row, std::int8_t column
-	             , std::int8_t const* tile)
+	             , Tile const& tile )
 	{
 
 	}

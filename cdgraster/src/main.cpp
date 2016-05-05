@@ -27,12 +27,15 @@ int main(int argc, char** argv)
 	cdgdecode::PacketProcessor<cdgraster::CDGRasterWidget> pp(rw);
 
 	cdgdecode::Packet packet(buffer, StartOfPackets);  
-
-	rw.SetNextListener( [&packet, &pp]() 
+	int counter = 0;
+	rw.SetNextListener( [&packet, &pp, &counter](int num) 
 	{ 
-		++packet; 
-		pp(packet);	
-		std::cout << "NEXT PACKET!\n"; 
+		for(int i=0; i<num; ++i, ++counter)
+		{
+			++packet; 
+			pp(packet);	
+			//std::cout << "PACKET(" << counter << ")\n";
+		}
 	} );
 
 	return app.exec();
