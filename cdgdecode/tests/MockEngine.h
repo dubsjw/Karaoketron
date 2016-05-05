@@ -59,6 +59,13 @@ struct MockEngine
 	{
 
 	}
+
+
+	void DrawXORTile( std::int8_t row, std::int8_t column
+	                , Tile const& tile )
+	{
+
+	}
 };
 
 

@@ -8,6 +8,7 @@
 
 namespace cdgraster
 {
+enum { THRESHOLD = 10 };
 
 CDGRasterWidget::CDGRasterWidget()
 : QWidget(nullptr)
@@ -111,12 +112,50 @@ void CDGRasterWidget::DrawTile( std::int8_t row
 		for(int tileY = 0; tileY < cdgdecode::screen::TileHeight; ++tileY)
 		{
 			m_screen[tileX + x][tileY + y] = tile[tileX][tileY];
-			//std::cout << "m_screen[" << (tileX + x) << "," << (tileY + y) << "] = tile[" << tileX << "," <<tileY << "] = " << static_cast<int>(tile[tileX][tileY]) << "\n";
 		}
 	}
 
-	repaint();
+	static int counter = 0;
+	++counter;
+	if (counter >= THRESHOLD)
+	{
+		counter = 0;
+		repaint();
+	}
+
 }
+
+
+void CDGRasterWidget::DrawXORTile( std::int8_t row
+                                 , std::int8_t column
+                                 , cdgdecode::Tile const& tile )
+{
+	using namespace cdgdecode;
+
+	int x = row * screen::TileWidth;	
+	int y = column * screen::TileHeight;	
+
+	for(int tileX = 0; tileX < cdgdecode::screen::TileWidth; ++tileX)
+	{
+		for(int tileY = 0; tileY < cdgdecode::screen::TileHeight; ++tileY)
+		{
+			auto originalValue = m_screen[tileX + x][tileY + y];
+			auto xorValue = tile[tileX][tileY];
+		
+			m_screen[tileX + x][tileY + y] = originalValue ^ xorValue;
+		}
+	}
+
+	static int counter = 0;
+	++counter;
+	if (counter >= THRESHOLD)
+	{
+		counter = 0;
+		repaint();
+	}
+}
+
+
 
 
 void CDGRasterWidget::paintEvent(QPaintEvent* evt)
@@ -177,6 +216,7 @@ void CDGRasterWidget::OnTimeout()
 {
 	m_next(100);
 }
+
 
 }
 

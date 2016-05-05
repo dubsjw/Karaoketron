@@ -47,13 +47,6 @@ inline void TileFromData(Packet const& packet, Tile& tile)
 
 	tbc.data = tileBlockData->color1;
 	auto color1 = tbc.l4.lower4;
-
-	tbc.data = tileBlockData->row;
-	auto row = tbc.l5.lower5;
-
-	tbc.data = tileBlockData->column;
-	auto column = tbc.l6.lower6;
-
 	int x = 0;
 	int y = 0;
 

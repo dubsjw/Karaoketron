@@ -2,10 +2,13 @@
 
 #include <cdgdecode/Screen.h>
 #include <QColor>
+#include <QTimer>
 #include <QWidget>
 #include <cstdint>
 #include <functional>
 #include <vector>
+
+namespace cdgdecode { struct Tile; }
 
 namespace cdgraster
 {
@@ -17,7 +20,7 @@ class CDGRasterWidget : public QWidget
 
 		CDGRasterWidget();
 
-		void SetNextListener(std::function<void()> next);
+		void SetNextListener(std::function<void(int increment)> next);
 
 		/**
 		 * The following method is required by the MemoryPreset 
@@ -26,8 +29,13 @@ class CDGRasterWidget : public QWidget
 		void Clear(std::int8_t color);
 		void ClearBorder(std::int8_t color);
 		void DrawTile( std::int8_t row, std::int8_t column
-			     , std::int8_t const* tile);
+			     , cdgdecode::Tile const& tile );
 
+		void DrawXORTile( std::int8_t row, std::int8_t column
+			        , cdgdecode::Tile const& tile );
+
+	public Q_SLOTS:
+		void OnTimeout();
 
 	protected:
 		void paintEvent(QPaintEvent* evt);
@@ -37,7 +45,8 @@ class CDGRasterWidget : public QWidget
 	private:
 		QHash<std::int8_t, QColor> m_colors;
 		std::vector<std::vector<std::int8_t> > m_screen;
-		std::function<void()> m_next;
+		std::function<void(int increment)> m_next;
+		QTimer m_timer;
 };
 
 }

@@ -17,6 +17,17 @@ template <typename EngineType>
 inline void HandleXORTileBlockPreset(EngineType& engine, Packet const& packet)
 {
 
+	TileBlockData const* tileBlockData =
+	    reinterpret_cast<TileBlockData const*>(packet.Data());	
+
+	TileBlockChannel tbc;
+
+	tbc.data = tileBlockData->row;
+	auto row = tbc.l5.lower5;
+
+	tbc.data = tileBlockData->column;
+	auto column = tbc.l6.lower6;
+
 	Tile tile;
 	TileFromData(packet, tile);
 	engine.DrawXORTile( row, column, tile );	
