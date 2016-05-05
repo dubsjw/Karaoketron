@@ -90,7 +90,7 @@ template <typename EngineType> struct PacketProcessor
 	                         , Packet const& packet)
 	{
 		std::cout << "The instruction " << static_cast<int>(packet.Instruction()) << " was not handled.\n\n"; 
-		assert(nullptr && "The command was not implemented");
+		assert(false && "The command was not implemented");
 	}
 
 };
