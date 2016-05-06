@@ -8,8 +8,10 @@
 #include <cdgdecode/Tile.h>
 #include "src/cdgdecode_BitMask.h"
 #include "src/ChannelEncoding.h"
+#include "src/ColorEncoding.h"
 
 // std dependencies
+#include <algorithm>
 #include <cstdint>
 #include <iostream>
 #include <type_traits>
@@ -48,12 +50,14 @@ struct ColorData
 };
 
 
-inline Color ExtractColorData( ColorEncodingHighByte& high
-                             , ColorEncodingLowByte& low )
+inline Color ExtractColorData( ColorEncodingHighByte const& high
+                             , ColorEncodingLowByte const& low )
 {
-	auto red = high.red;	
-	auto green = (high.green << 2) | low0.green;
-	auto blue = low0.blue; 
+	auto red = high.red * 15;	
+	auto green = ((high.green << 2) | low.green) * 15;
+	auto blue = low.blue * 15; 
+
+	std::cout << "RED=" << static_cast<int>(red) << ",GREEN=" << static_cast<int>(green) << ",BLUE=" << static_cast<int>(blue) << std::endl;
 
 	return Color(red, green, blue);
 }
@@ -63,6 +67,27 @@ template <typename Iterator>
 void ExtractColorData(ColorData const& cd, Iterator iter )
 {
 	*iter = ExtractColorData( cd.high0, cd.low0 );
+	++iter;
+
+	*iter = ExtractColorData( cd.high1, cd.low1 );
+	++iter;
+
+	*iter = ExtractColorData( cd.high2, cd.low2 );
+	++iter;
+
+	*iter = ExtractColorData( cd.high3, cd.low3 );
+	++iter;
+
+	*iter = ExtractColorData( cd.high4, cd.low4 );
+	++iter;
+
+	*iter = ExtractColorData( cd.high5, cd.low5 );
+	++iter;
+
+	*iter = ExtractColorData( cd.high6, cd.low6 );
+	++iter;
+
+	*iter = ExtractColorData( cd.high7, cd.low7 );
 	++iter;
 }
 
@@ -87,6 +112,13 @@ inline void HandleLoadHighPalette(EngineType& engine, Packet const& packet)
 	colors.resize(8);
 
 	ExtractColorData( *colorData, colors.begin() );
+
+	int counter = 8;
+	std::for_each( colors.begin(), colors.end(), [&colorTable, &counter](Color const& c)
+	{
+		colorTable[counter] = c;
+		++counter;
+	});
 }
 
 
@@ -99,12 +131,25 @@ inline void HandleLoadHighPalette(EngineType& engine, Packet const& packet)
 template <typename EngineType>
 inline void HandleLoadLowPalette(EngineType& engine, Packet const& packet)
 {
+	// Reinterpret cast the color data.
+	ColorData const* colorData = reinterpret_cast<ColorData const*>(packet.Data());
+
 	// Grab a reference to the palette. 
 	ColorTable& colorTable = engine.Palette();	
 
 	// A collection of colors decoded from the packet.
 	std::vector<Color> colors;
 	colors.resize(8);
+
+	ExtractColorData( *colorData, colors.begin() );
+
+	int counter = 0;
+	std::for_each( colors.begin(), colors.end(), [&colorTable, &counter](Color const& c)
+	{
+		colorTable[counter] = c;
+		++counter;
+	});
+
 }
 
 

@@ -5,7 +5,7 @@ namespace cdgdecode
 
 struct ColorEncodingHighByte
 {
-	unsigned char green : 2
+	unsigned char green : 2;
 	unsigned char red : 4;
 	unsigned char X : 2;
 };

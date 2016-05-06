@@ -23,18 +23,11 @@ namespace cdgdecode
 template <typename EngineType>
 inline void HandleTileBlockPreset(EngineType& engine, Packet const& packet)
 {
-
 	TileBlockData const* tileBlockData =
 	    reinterpret_cast<TileBlockData const*>(packet.Data());	
 
-	TileBlockChannel tbc;
-
-	tbc.data = tileBlockData->row;
-	auto row = tbc.l5.lower5;
-
-	tbc.data = tileBlockData->column;
-	auto column = tbc.l6.lower6;
-
+	std::int8_t row = tileBlockData->row & 0x1f;
+	std::int8_t column = tileBlockData->column & 0x3f;
 
 	Tile tile;
 	TileFromData(packet, tile);

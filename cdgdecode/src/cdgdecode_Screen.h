@@ -24,9 +24,9 @@ namespace screen
 
 		ViewY2 = (Height - BorderHeight),
 
-		TileWidth = 12,
+		TileWidth = 6,
 		
-		TileHeight = 6,
+		TileHeight = 12,
 
 		NumberOfHorizontalTiles = (ViewX2 - ViewX1) / TileWidth,
 

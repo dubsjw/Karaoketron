@@ -1,7 +1,8 @@
 #pragma once
 
-#include "src/cdgdecode_Screen.h"
-#include "src/cdgdecode_Tile.h"
+#include <cdgdecode/ColorTable.h>
+#include <cdgdecode/Screen.h>
+#include <cdgdecode/Tile.h>
 #include <cstdint>
 #include <cstdlib>
 #include <vector>
@@ -17,6 +18,8 @@ struct MockEngine
 	//! The screen.
 	std::vector<std::vector<std::int8_t> > m_screen;
 
+	//! The color table.
+	ColorTable m_colorTable;
 
 	MockEngine()
 	{
@@ -65,6 +68,11 @@ struct MockEngine
 	                , Tile const& tile )
 	{
 
+	}
+
+	ColorTable& Palette()
+	{
+		return m_colorTable;
 	}
 };
 

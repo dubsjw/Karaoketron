@@ -19,22 +19,23 @@ CDGRasterWidget::CDGRasterWidget()
 	setMinimumSize( screen::Width, screen::Height );
 	setMaximumSize( screen::Width, screen::Height );
 
-	m_colors[0] = QColor(0,0,0);
-	m_colors[1] = QColor(128, 0, 0);
-	m_colors[2] = QColor(255, 0, 0);
-	m_colors[3] = QColor(255, 0, 255);
-	m_colors[4] = QColor(0, 128, 128);
-	m_colors[5] = QColor(0, 128, 0);
-	m_colors[6] = QColor(0, 255, 0);
-	m_colors[7] = QColor(0, 255, 255);
-	m_colors[8] = QColor(0, 0, 128);
-	m_colors[9] = QColor(128, 0, 128);
-	m_colors[10] = QColor(0, 0, 255);
-	m_colors[11] = QColor(192, 192, 192);
-	m_colors[12] = QColor(128, 128, 128);
-	m_colors[13] = QColor(128, 128, 0);
-	m_colors[14] = QColor(255, 255, 0);
-	m_colors[15] = QColor(255, 255, 255);
+
+	m_colors[0] = Color(0,0,0);
+	m_colors[1] = Color(128, 0, 0);
+	m_colors[2] = Color(255, 0, 0);
+	m_colors[3] = Color(255, 0, 255);
+	m_colors[4] = Color(0, 128, 128);
+	m_colors[5] = Color(0, 128, 0);
+	m_colors[6] = Color(0, 255, 0);
+	m_colors[7] = Color(0, 255, 255);
+	m_colors[8] = Color(0, 0, 128);
+	m_colors[9] = Color(128, 0, 128);
+	m_colors[10] = Color(0, 0, 255);
+	m_colors[11] = Color(192, 192, 192);
+	m_colors[12] = Color(128, 128, 128);
+	m_colors[13] = Color(128, 128, 0);
+	m_colors[14] = Color(255, 255, 0);
+	m_colors[15] = Color(255, 255, 255);
 
 	m_screen.resize(screen::Width);
 	for(int i=0; i<screen::Width; ++i)
@@ -103,15 +104,19 @@ void CDGRasterWidget::DrawTile( std::int8_t row
                               , cdgdecode::Tile const& tile )
 {
 	using namespace cdgdecode;
+//	std::cout << "ROW: " << static_cast<int>(row) << ", COLUMN: " << static_cast<int>(column) << std::endl;
 
-	int x = row * screen::TileWidth;	
-	int y = column * screen::TileHeight;	
+	int x = column * screen::TileWidth;	
+	int y = row * screen::TileHeight;	
 
 	for(int tileX = 0; tileX < cdgdecode::screen::TileWidth; ++tileX)
 	{
 		for(int tileY = 0; tileY < cdgdecode::screen::TileHeight; ++tileY)
 		{
-			m_screen[tileX + x][tileY + y] = tile[tileX][tileY];
+			if (tileX + x < m_screen.size() && tileY + y < m_screen[x+tileX].size())
+			{
+				m_screen[tileX + x][tileY + y] = tile[tileX][tileY];
+			}
 		}
 	}
 
@@ -132,17 +137,20 @@ void CDGRasterWidget::DrawXORTile( std::int8_t row
 {
 	using namespace cdgdecode;
 
-	int x = row * screen::TileWidth;	
-	int y = column * screen::TileHeight;	
+	int x = column * screen::TileWidth;	
+	int y = row * screen::TileHeight;	
 
 	for(int tileX = 0; tileX < cdgdecode::screen::TileWidth; ++tileX)
 	{
 		for(int tileY = 0; tileY < cdgdecode::screen::TileHeight; ++tileY)
 		{
-			auto originalValue = m_screen[tileX + x][tileY + y];
-			auto xorValue = tile[tileX][tileY];
+			if (tileX + x < m_screen.size() && tileY + y < m_screen[x+tileX].size())
+			{
+				auto originalValue = m_screen[tileX + x][tileY + y];
+				auto xorValue = tile[tileX][tileY];
 		
-			m_screen[tileX + x][tileY + y] = originalValue ^ xorValue;
+				m_screen[tileX + x][tileY + y] = originalValue ^ xorValue;
+			}
 		}
 	}
 
@@ -169,9 +177,11 @@ void CDGRasterWidget::paintEvent(QPaintEvent* evt)
 			auto pixelColor = m_screen[i][j];
 
 			QColor c;
-			if (m_colors.contains(pixelColor))
+			if (pixelColor < 16)
 			{
-				c = m_colors[pixelColor];	
+				Color& localColor = m_colors[pixelColor];
+				
+				c = QColor(localColor.Red(), localColor.Green(), localColor.Blue());
 			}
 			else
 			{
@@ -217,6 +227,11 @@ void CDGRasterWidget::OnTimeout()
 	m_next(100);
 }
 
+
+cdgdecode::ColorTable& CDGRasterWidget::Palette()
+{
+	return m_colors;
+}
 
 }
 

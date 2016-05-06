@@ -1,5 +1,3 @@
-#pragma once
-
 #include "src/cdgdecode_Color.h"
 #include "src/cdgdecode_LoadPalette.h"
 #include <catch.hpp>
@@ -33,12 +31,12 @@ TEST_CASE( "testing out encoding/decoding blue" )
 	high.red = 0;
 	high.green = 0;
 	low.green = 0;
-	low.blue = 100;
+	low.blue = 10;
 
 	auto c = ExtractColorData( high, low );	
 	REQUIRE(c.Red() == 0);
 	REQUIRE(c.Green() == 0);
-	REQUIRE(c.Blue() == 100);
+	REQUIRE(c.Blue() == 10);
 }
 
 
@@ -47,13 +45,13 @@ TEST_CASE( "testing out encoding/decoding red" )
 	ColorEncodingHighByte high;
 	ColorEncodingLowByte low;
 
-	high.red = 100;
+	high.red = 10;
 	high.green = 0;
 	low.green = 0;
 	low.blue = 0;
 
 	auto c = ExtractColorData( high, low );	
-	REQUIRE(c.Red() == 100);
+	REQUIRE(c.Red() == 10);
 	REQUIRE(c.Green() == 0);
 	REQUIRE(c.Blue() == 0);
 }

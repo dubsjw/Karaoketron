@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cdgdecode/ColorTable.h>
 #include <cdgdecode/Screen.h>
 #include <QColor>
 #include <QTimer>
@@ -33,6 +34,7 @@ class CDGRasterWidget : public QWidget
 
 		void DrawXORTile( std::int8_t row, std::int8_t column
 			        , cdgdecode::Tile const& tile );
+		cdgdecode::ColorTable& Palette();
 
 	public Q_SLOTS:
 		void OnTimeout();
@@ -43,7 +45,7 @@ class CDGRasterWidget : public QWidget
 	
 
 	private:
-		QHash<std::int8_t, QColor> m_colors;
+		cdgdecode::ColorTable m_colors;
 		std::vector<std::vector<std::int8_t> > m_screen;
 		std::function<void(int increment)> m_next;
 		QTimer m_timer;

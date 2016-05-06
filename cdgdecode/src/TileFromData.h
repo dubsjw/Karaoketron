@@ -6,6 +6,7 @@
 namespace cdgdecode
 {
 
+enum { NumberOfTilePixels = 12 };
 
 struct TileBlockData
 {
@@ -25,7 +26,7 @@ struct TileBlockData
 
 	//! Only the lower 6 bits are used in each value, they designate the
 	//! raw drawing value. Each bit signals either use color0 or color1.
-	std::int8_t tilePixels[12];
+	std::int8_t tilePixels[NumberOfTilePixels];
 };
 
 
@@ -41,32 +42,28 @@ inline void TileFromData(Packet const& packet, Tile& tile)
 	TileBlockData const* tileBlockData =
 	    reinterpret_cast<TileBlockData const*>(packet.Data());	
 
-	TileBlockChannel tbc;
-	tbc.data = tileBlockData->color0;
-	auto color0 = tbc.l4.lower4;
+	std::int8_t color0 = tileBlockData->color0 & 0x0f;
+	std::int8_t color1 = tileBlockData->color1 & 0x0f;
 
-	tbc.data = tileBlockData->color1;
-	auto color1 = tbc.l4.lower4;
 	int x = 0;
 	int y = 0;
 
-	for(int i=0; i<12; ++i)
+	for(int i=0; i<NumberOfTilePixels; ++i)
 	{
-		tbc.data = tileBlockData->tilePixels[i];	
+		std::int8_t pixeldata = (tileBlockData->tilePixels[i] & 0x3f);
 		
-		tile[x][y] = tbc.drawing.bit0 ? color1 : color0;	
-		tile[x+1][y] = tbc.drawing.bit1 ? color1 : color0;	
-		tile[x+2][y] = tbc.drawing.bit2 ? color1 : color0;	
-		tile[x+3][y] = tbc.drawing.bit3 ? color1 : color0;	
-		tile[x+4][y] = tbc.drawing.bit4 ? color1 : color0;	
-		tile[x+5][y] = tbc.drawing.bit5 ? color1 : color0;	
-
-		x = x + 6;
-		if (x >= screen::TileWidth)
+		for(int j=0; j<6; ++j)
 		{
-			x = 0;
-			++y;
-		} 
+			tile[x][y] = ( (pixeldata & 0x1) == 0x01 ) ? color1 : color0;
+
+			++x;
+			if (x >= screen::TileWidth)
+			{
+				x = 0;
+				++y;
+			}
+			pixeldata = (pixeldata >> 1);
+		}
 	}		
 }
 
