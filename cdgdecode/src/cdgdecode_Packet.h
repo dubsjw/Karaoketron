@@ -7,6 +7,7 @@
  */
 
 #include <cdgdecode/Globals.h>
+#include "src/ChannelEncoding.h"
 
 #include <cstdint>
 #include <memory>
@@ -31,24 +32,6 @@ struct SubCode
  * channel. To Simplify how this works, I've created a struct that
  * performs bit-packing. 
  */
-struct ChannelMapping
-{
-	unsigned char W : 1;
-	unsigned char V : 1;
-	unsigned char U : 1;
-	unsigned char T : 1;
-	unsigned char S : 1;
-	unsigned char R : 1;
-	unsigned char Q : 1;
-	unsigned char P : 1;
-};
-
-
-/**
- * Inside of the documentation it maps bit locations to a 
- * channel. To Simplify how this works, I've created a struct that
- * performs bit-packing. 
- */
 struct ChannelMask
 {
 	unsigned char payload : 6;
@@ -63,10 +46,11 @@ struct ChannelMask
  */
 union ChannelDecoder
 {
-	ChannelMapping channel;
+	ChannelEncoding channel;
 	ChannelMask mask;
 	std::int8_t data;
 };
+
 
 struct PacketPrivate;
 
