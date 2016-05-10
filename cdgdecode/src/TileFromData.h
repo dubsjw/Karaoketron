@@ -54,7 +54,7 @@ inline void TileFromData(Packet const& packet, Tile& tile)
 		
 		for(int j=0; j<6; ++j)
 		{
-			tile[x][y] = ( (pixeldata & 0x1) == 0x01 ) ? color1 : color0;
+			tile[x][y] = ( (pixeldata & 64) != 0 ) ? color1 : color0;
 
 			++x;
 			if (x >= screen::TileWidth)
@@ -62,7 +62,7 @@ inline void TileFromData(Packet const& packet, Tile& tile)
 				x = 0;
 				++y;
 			}
-			pixeldata = (pixeldata >> 1);
+			pixeldata = (pixeldata << 1);
 		}
 	}		
 }
