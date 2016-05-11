@@ -24,7 +24,7 @@ struct CDGDECODE_EXPORT TileRow
 	std::int8_t const& operator[](std::int8_t y) const;
 
 	private:
-		std::unique_ptr<TileRowPrivate> d_ptr;
+		TileRowPrivate* d_ptr;
 };
 
 struct TilePrivate;
@@ -42,7 +42,7 @@ struct CDGDECODE_EXPORT Tile
 
 
 	private:
-		std::unique_ptr<TilePrivate> d_ptr;
+		TilePrivate* d_ptr;
 };
 
 }

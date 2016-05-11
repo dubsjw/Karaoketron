@@ -36,6 +36,7 @@ Packet::Packet(CDGBuffer const& buffer, std::uint32_t index)
 
 Packet::~Packet()
 {
+	delete d_ptr;
 }
 
 

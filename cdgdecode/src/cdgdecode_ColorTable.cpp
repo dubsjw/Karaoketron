@@ -24,6 +24,7 @@ ColorTable::ColorTable()
 
 ColorTable::~ColorTable()
 {
+	delete d_ptr;
 }
 
 

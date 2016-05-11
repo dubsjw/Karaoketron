@@ -21,7 +21,7 @@ struct CDGDECODE_EXPORT Header
 	void swap(Header& header);
 
 	private:
-		std::unique_ptr<HeaderPrivate> d_ptr;
+		HeaderPrivate* d_ptr;
 };
 
 }

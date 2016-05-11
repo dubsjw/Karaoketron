@@ -112,7 +112,7 @@ struct CDGDECODE_EXPORT Packet
 	Packet& operator++();
 
 	private:
-		std::unique_ptr<PacketPrivate> d_ptr;
+		PacketPrivate* d_ptr;
 };
 
 

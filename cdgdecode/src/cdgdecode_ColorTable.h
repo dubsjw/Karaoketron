@@ -24,7 +24,7 @@ struct CDGDECODE_EXPORT ColorTable
 	Color const& operator[](std::uint8_t index) const;
 
 	private:
-		std::unique_ptr<ColorTablePrivate> d_ptr;	
+		ColorTablePrivate* d_ptr;	
 };
 
 }

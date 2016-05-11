@@ -30,6 +30,7 @@ Header& Header::operator=(Header header)
 
 Header::~Header()
 {
+	delete d_ptr;
 }
 
 

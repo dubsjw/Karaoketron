@@ -23,6 +23,7 @@ TileRow::TileRow(TileRowPrivate* d)
 
 TileRow::~TileRow()
 {
+	delete d_ptr;
 }
 
 
@@ -84,6 +85,7 @@ Tile::Tile()
 
 Tile::~Tile()
 {
+	delete d_ptr;
 }
 
 
