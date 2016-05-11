@@ -1,5 +1,8 @@
 #pragma once
 
+//CDGDecode Dependencies
+#include <cdgdecode/Globals.h>
+
 // std dependencies
 #include <cstdint>
 #include <memory>
@@ -8,7 +11,7 @@ namespace cdgdecode
 {
 
 struct TileRowPrivate;
-struct TileRow
+struct CDGDECODE_EXPORT TileRow
 {
 	TileRow(TileRowPrivate* d);
 	~TileRow();
@@ -25,7 +28,7 @@ struct TileRow
 };
 
 struct TilePrivate;
-struct Tile
+struct CDGDECODE_EXPORT Tile
 {
 	Tile();
 	~Tile();

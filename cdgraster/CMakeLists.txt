@@ -25,3 +25,5 @@ target_include_directories(cdgraster PUBLIC "../cdgdecode/include")
 
 target_link_libraries(cdgraster Qt5::Widgets)
 target_link_libraries(cdgraster cdgdecode)
+
+qt5_use_modules(cdgraster Widgets)
