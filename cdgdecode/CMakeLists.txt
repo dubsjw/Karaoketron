@@ -14,3 +14,5 @@ add_library(cdgdecode SHARED ${cdgdecode_SRC})
 add_executable(CDGDecodeTests ${cdgdecode_SRC} ${cdgdecode_TESTS})
 target_include_directories( CDGDecodeTests PUBLIC tests/catch )
 target_include_directories( CDGDecodeTests PUBLIC tests )
+
+target_compile_definitions(cdgdecode PRIVATE CDGDECODE_SHARED_LIBRARY=1)

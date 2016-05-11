@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'CDGRasterWidget.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.3.2)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.6.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'CDGRasterWidget.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.3.2. It"
+#error "This file was generated using the moc from 5.6.0. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,18 +20,19 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_cdgraster__CDGRasterWidget_t {
     QByteArrayData data[3];
-    char stringdata[38];
+    char stringdata0[38];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_cdgraster__CDGRasterWidget_t, stringdata) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_cdgraster__CDGRasterWidget_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
 static const qt_meta_stringdata_cdgraster__CDGRasterWidget_t qt_meta_stringdata_cdgraster__CDGRasterWidget = {
     {
-QT_MOC_LITERAL(0, 0, 26),
-QT_MOC_LITERAL(1, 27, 9),
-QT_MOC_LITERAL(2, 37, 0)
+QT_MOC_LITERAL(0, 0, 26), // "cdgraster::CDGRasterWidget"
+QT_MOC_LITERAL(1, 27, 9), // "OnTimeout"
+QT_MOC_LITERAL(2, 37, 0) // ""
+
     },
     "cdgraster::CDGRasterWidget\0OnTimeout\0"
     ""
@@ -64,6 +65,7 @@ void cdgraster::CDGRasterWidget::qt_static_metacall(QObject *_o, QMetaObject::Ca
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
         CDGRasterWidget *_t = static_cast<CDGRasterWidget *>(_o);
+        Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->OnTimeout(); break;
         default: ;
@@ -74,7 +76,7 @@ void cdgraster::CDGRasterWidget::qt_static_metacall(QObject *_o, QMetaObject::Ca
 
 const QMetaObject cdgraster::CDGRasterWidget::staticMetaObject = {
     { &QWidget::staticMetaObject, qt_meta_stringdata_cdgraster__CDGRasterWidget.data,
-      qt_meta_data_cdgraster__CDGRasterWidget,  qt_static_metacall, 0, 0}
+      qt_meta_data_cdgraster__CDGRasterWidget,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
 
@@ -85,8 +87,8 @@ const QMetaObject *cdgraster::CDGRasterWidget::metaObject() const
 
 void *cdgraster::CDGRasterWidget::qt_metacast(const char *_clname)
 {
-    if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_cdgraster__CDGRasterWidget.stringdata))
+    if (!_clname) return Q_NULLPTR;
+    if (!strcmp(_clname, qt_meta_stringdata_cdgraster__CDGRasterWidget.stringdata0))
         return static_cast<void*>(const_cast< CDGRasterWidget*>(this));
     return QWidget::qt_metacast(_clname);
 }

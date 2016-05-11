@@ -2,6 +2,7 @@
 
 // cdgdecode dependencies
 #include <cdgdecode/Color.h>
+#include <cdgdecode/Globals.h>
 
 // std dependencies
 #include <cstdint>
@@ -11,7 +12,7 @@ namespace cdgdecode
 {
 struct ColorTablePrivate;
 
-struct ColorTable
+struct CDGDECODE_EXPORT ColorTable
 {
 	ColorTable();
 	~ColorTable();

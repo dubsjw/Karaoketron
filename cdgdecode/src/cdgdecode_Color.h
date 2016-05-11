@@ -1,5 +1,8 @@
 #pragma once
 
+//CDGDecode Dependencies
+#include <cdgdecode/Globals.h>
+
 // std dependencies
 #include <memory>
 
@@ -8,7 +11,7 @@ namespace cdgdecode
 
 struct ColorPrivate;
 
-struct Color
+struct CDGDECODE_EXPORT Color
 {
 	Color();
 	Color(int r, int g, int b);
