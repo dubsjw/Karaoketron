@@ -50,14 +50,20 @@ struct ColorData
 };
 
 
+template <int Base, typename InType>
+int ConvertTo255(InType input)
+{
+	float f = static_cast<float>(input) / static_cast<float>(Base);
+	return static_cast<int>(255.0 * f);
+}
+
+
 inline Color ExtractColorData( ColorEncodingHighByte const& high
                              , ColorEncodingLowByte const& low )
 {
-	auto red = high.red * 15;	
-	auto green = ((high.green << 2) | low.green) * 15;
-	auto blue = low.blue * 15; 
-
-	std::cout << "RED=" << static_cast<int>(red) << ",GREEN=" << static_cast<int>(green) << ",BLUE=" << static_cast<int>(blue) << std::endl;
+	auto red = ConvertTo255<16>(high.red);
+	auto green = ConvertTo255<16>((high.green<< 2) | low.green);
+	auto blue = ConvertTo255<16>(low.blue);
 
 	return Color(red, green, blue);
 }
