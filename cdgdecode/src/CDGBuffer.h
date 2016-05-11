@@ -2,7 +2,6 @@
 
 #include <cdgdecode/Globals.h>
 #include <cstdint>
-#include <memory>
 
 namespace cdgdecode
 {
@@ -24,7 +23,7 @@ class CDGDECODE_EXPORT CDGBuffer
 		std::uint8_t* GetBufferPtr(std::uint32_t index) const;
 
 	private:
-		std::unique_ptr<CDGBufferPrivate> d_ptr;
+		CDGBufferPrivate* d_ptr;
 };
 
 }

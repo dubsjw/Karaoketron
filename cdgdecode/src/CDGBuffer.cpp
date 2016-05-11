@@ -22,6 +22,7 @@ CDGBuffer::CDGBuffer()
 
 CDGBuffer::~CDGBuffer()
 {
+	delete d_ptr;
 }
 
 

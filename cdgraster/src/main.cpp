@@ -17,7 +17,11 @@ enum
 int main(int argc, char** argv)
 {
 	cdgdecode::CDGBuffer buffer;
+	#if defined _WIN32 || defined _WIN64
+	buffer.Open("C:/MaryHadALittleLamb.cdg");
+	#else
 	buffer.Open("/tmp/MaryHadALittleLamb.cdg");
+	#endif
 
 
 	QApplication app(argc, argv);

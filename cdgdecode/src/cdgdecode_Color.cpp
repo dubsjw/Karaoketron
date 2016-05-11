@@ -46,6 +46,7 @@ Color& Color::operator=(Color c)
 
 Color::~Color()
 {
+	delete d_ptr;
 }
 
 

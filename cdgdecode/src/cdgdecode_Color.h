@@ -29,7 +29,7 @@ struct CDGDECODE_EXPORT Color
 	void SetBlue(int b);
 
 	private:
-		std::unique_ptr<ColorPrivate> d_ptr;
+		ColorPrivate* d_ptr;
 };
 
 

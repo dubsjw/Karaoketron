@@ -109,9 +109,9 @@ void CDGRasterWidget::DrawTile( std::int8_t row
 	int x = column * screen::TileWidth;	
 	int y = row * screen::TileHeight;	
 
-	for(int tileX = 0; tileX < cdgdecode::screen::TileWidth; ++tileX)
+	for(unsigned int tileX = 0; tileX < cdgdecode::screen::TileWidth; ++tileX)
 	{
-		for(int tileY = 0; tileY < cdgdecode::screen::TileHeight; ++tileY)
+		for(unsigned int tileY = 0; tileY < cdgdecode::screen::TileHeight; ++tileY)
 		{
 			if (tileX + x < m_screen.size() && tileY + y < m_screen[x+tileX].size())
 			{
@@ -140,9 +140,9 @@ void CDGRasterWidget::DrawXORTile( std::int8_t row
 	int x = column * screen::TileWidth;	
 	int y = row * screen::TileHeight;	
 
-	for(int tileX = 0; tileX < cdgdecode::screen::TileWidth; ++tileX)
+	for(unsigned int tileX = 0; tileX < cdgdecode::screen::TileWidth; ++tileX)
 	{
-		for(int tileY = 0; tileY < cdgdecode::screen::TileHeight; ++tileY)
+		for(unsigned int tileY = 0; tileY < cdgdecode::screen::TileHeight; ++tileY)
 		{
 			if (tileX + x < m_screen.size() && tileY + y < m_screen[x+tileX].size())
 			{
