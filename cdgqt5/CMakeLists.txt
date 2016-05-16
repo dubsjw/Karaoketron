@@ -16,9 +16,11 @@ endif()
 
 find_package(Qt5Widgets)
 
-add_executable(cdgqt5 ${cdgqt5_SRC})
+add_library(cdgqt5 ${cdgqt5_SRC})
 target_include_directories(cdgqt5 PUBLIC "../cdgqt5")
 target_include_directories(cdgqt5 PUBLIC "../cdgqt5/include")
+target_include_directories(cdgqt5 PUBLIC "../cdgdecode")
+target_include_directories(cdgqt5 PUBLIC "../cdgdecode/include")
 
 target_link_libraries(cdgqt5 Qt5::Widgets)
 target_link_libraries(cdgqt5 cdgdecode)
