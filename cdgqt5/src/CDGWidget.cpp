@@ -67,35 +67,16 @@ CDGModel const* CDGWidget::Model() const
 }
 
 
+void CDGWidget::SetModel(CDGModel* m)
+{
+	d_ptr->m_model = m;
+}
+
+
 void CDGWidget::paintEvent(QPaintEvent* )
 {
 	QPainter painter(this);
-}
 
-
-void CDGWidget::Clear(std::int8_t color)
-{
-}
-
-
-void CDGWidget::ClearBorder(std::int8_t color)
-{
-}
-
-
-void CDGWidget::DrawTile( std::int8_t row, std::int8_t column, cdgdecode::Tile const& tile )
-{
-}
-
-
-void CDGWidget::DrawXORTile( std::int8_t row, std::int8_t column, cdgdecode::Tile const& tile )
-{
-}
-
-
-cdgdecode::ColorTable& CDGWidget::Palette()
-{
-	return d_ptr->m_model->Palette();
 }
 
 

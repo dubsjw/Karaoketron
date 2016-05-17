@@ -37,14 +37,7 @@ class CDGQT5_EXPORT CDGWidget : public QWidget
 
 		CDGModel* Model();
 		CDGModel const* Model() const;
-
-	public: // Engine stuff.
-		
-		void Clear(std::int8_t color);	
-		void ClearBorder(std::int8_t color);	
-		void DrawTile( std::int8_t row, std::int8_t column, cdgdecode::Tile const& tile );
-		void DrawXORTile( std::int8_t row, std::int8_t column, cdgdecode::Tile const& tile );
-		cdgdecode::ColorTable& Palette();
+		void SetModel(CDGModel* m);
 
 	protected:
 		void paintEvent(QPaintEvent* evt);
