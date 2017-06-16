@@ -7,6 +7,7 @@
 #include <QObject>
 
 namespace cdgdecode { class ColorTable; }
+namespace cdgdecode { class Tile; }
 
 namespace cdgqt5
 {

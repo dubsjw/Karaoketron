@@ -19,16 +19,25 @@ struct CDGModelPrivate
 	QString m_file;
 
 	//! The packet processor.
-	cdgdecode::PacketProcessor m_packetProcessor;
+	cdgdecode::PacketProcessor<CDGModel> m_packetProcessor;
 
 	//! The local packet.
-	cdgdecode::Packet m_packet;
+	//cdgdecode::Packet m_packet;
+
+
+	CDGModelPrivate(CDGModel* api)
+	: m_palette()
+	, m_file()
+	, m_packetProcessor(*api)
+	//, m_packet()
+	{
+	}
 };
 
 
 CDGModel::CDGModel(QObject* parent)
 : QObject(parent)
-, d_ptr(new CDGModelPrivate())
+, d_ptr(new CDGModelPrivate(this))
 {
 }
 
